@@ -1,0 +1,14 @@
+name = Bootstrap.js
+description = Twitter Bootstrap integration for Drupal
+core = 7.x
+package = Twitter Bootstrap
+
+files[] = bootstrapjs.module
+files[] = bootstrapjs.admin.inc
+
+; Information added by drupal.org packaging script on 2012-12-20
+version = "7.x-1.2"
+core = "7.x"
+project = "bootstrapjs"
+datestamp = "1356020639"
+

@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_requirements().
+ */
+function bootstrap_select_requirements($phase) {
+  $requirements = array();
+  if ($phase == "runtime") {
+    $library_path = libraries_get_path('bootstrap-select');
+    $requirements['bootstrap-select'] = array(
+      'title' => t('bootstrap-select.js Javascript'),
+      'value' => t('Enabled'),
+    );
+    }
+    if (function_exists('libraries_get_path') && file_exists(libraries_get_path('bootstrap-select')) === FALSE) {
+      $requirements['bootstrap_select']['value'] = t('bootstrap-select.min.js is not correctly using Libraries API');
+      $requirements['bootstrap_select']['severity'] = REQUIREMENT_WARNING;
+      $requirements['bootstrap_select']['description'] = t('Please install <a href="http://silviomoreto.github.io/bootstrap-select/">Twitter Bootstrap Select Plugins</a> in <b>'. libraries_get_path('bootstrap-select'));
+    }
+  return $requirements;
+}

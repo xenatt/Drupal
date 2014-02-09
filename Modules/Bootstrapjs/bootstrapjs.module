@@ -1,0 +1,52 @@
+<?php
+function bootstrapjs_init() {
+  if (function_exists('libraries_get_path') && file_exists(libraries_get_path('bootstrap')) && variable_get('bootstrapjs_source') === 'Libraries' && variable_get('bootstrapjs_theme') === 'Default') {
+    $path = libraries_get_path('bootstrap');
+    drupal_add_js($path . '/js/bootstrap.min.js','file');
+	drupal_add_css($path . '/css/bootstrap.min.css','file');
+  }
+  elseif (function_exists('libraries_get_path') && file_exists(libraries_get_path('bootstrap')) && variable_get('bootstrapjs_source') === 'Libraries' && variable_get('bootstrapjs_theme') !== 'Default') {
+    $path = libraries_get_path('bootstrap');
+    drupal_add_js($path . '/js/bootstrap.min.js','file');
+  }
+  elseif (variable_get('bootstrapjs_theme') === 'Default' && variable_get('bootstrapjs_source') === 'CDN')  {
+  	drupal_add_css(variable_get('bootstrapjs_cdn_css_uri'),'external');
+	drupal_add_js(variable_get('bootstrapjs_cdn_js_uri'),'external');
+  }
+  elseif (variable_get('bootstrapjs_theme') !== 'Default' && variable_get('bootstrapjs_source') === 'CDN') {
+  	drupal_add_js(variable_get('bootstrapjs_cdn_js_uri'),'external');
+  }
+  elseif (variable_get('bootstrapjs_theme') !== 'Default' && variable_get('bootstrapjs_theme') !== 'None')  {
+      drupal_add_css(variable_get('bootstrapjs_cdn_css_uri'),'external');
+  }
+}
+
+function bootstrapjs_libraries_library() {
+$libraries['bootstrap'] = array(
+    'title' => 'Bootstrap',
+    'website' => 'http://getbootstrap.com/',
+    'download url' => 'http://getbootstrap.com/getting-started/#download',
+    'path' => 'js',
+	'version' => '',
+    'files' => array(
+      'js' => array('js/bootstrap.min.js'),
+	  'css' => array('css/bootstrap.min.css'),
+    ),
+  );
+  return $libraries;
+}
+
+function bootstrapjs_menu() {
+  $items = array();
+
+  $items['admin/config/media/bootstrapjs'] = array(
+    'title' => 'Twitter Bootstrap',
+    'description' => 'Configuration for Twitter Bootstrap Framework',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bootstrapjs_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'bootstrapjs.admin.inc',
+  );
+  return $items;
+}
+

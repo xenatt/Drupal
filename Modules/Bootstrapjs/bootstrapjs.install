@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Implements hook_requirements().
+ */
+function bootstrapjs_requirements($phase) {
+  $requirements = array();
+  if ($phase == "runtime") {
+    $library_path = libraries_get_path('bootstrap');
+    $requirements['bootstrapjs'] = array(
+      'title' => t('Bootstrap.js script'),
+      'value' => t('Enabled'),
+    );
+    }
+    if (function_exists('libraries_get_path') && file_exists(libraries_get_path('bootstrap')) === FALSE) {
+      $requirements['bootstrapjs']['value'] = t('Bootstrap.js is not correctly using Libraries API');
+      $requirements['bootstrapjs']['severity'] = REQUIREMENT_WARNING;
+      $requirements['bootstrapjs']['description'] = t('Please install <a href="http://getbootstrap.com/">Twitter Bootstrap</a> in <b>'. libraries_get_path('bootstrap'));
+    }
+  return $requirements;
+}
+/**
+ * Implements hook_install().
+ */
+function bootstrapjs_install() {
+	variable_set('bootstrapjs_cdn_css_uri','http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css');
+	variable_set('bootstrapjs_cdn_js_uri','http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js');
+	variable_set('bootstrapjs_theme','Default');
+	variable_set('bootstrapjs_theme_uri','');
+	variable_set('bootstrapjs_source','CDN');
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+ 
+ 
+function bootstrapjs_uninstall() {
+	variable_del('bootstrapjs_cdn_css_uri');
+	variable_del('bootstrapjs_cdn_js_uri');
+	variable_del('bootstrapjs_theme');
+	variable_del('bootstrapjs_theme_uri');
+	variable_del('bootstrapjs_source');
+}

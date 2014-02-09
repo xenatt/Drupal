@@ -1,0 +1,24 @@
+<?php
+function bootstrap_select_init() {
+  if (function_exists('libraries_get_path') && file_exists(libraries_get_path('bootstrap-select'))) {
+    $path = libraries_get_path('bootstrap-select');
+    drupal_add_js($path . '/bootstrap-select.min.js','file');
+	drupal_add_js("jQuery(window).on('load', function () { jQuery('.form-select').selectpicker(); });","inline");
+	drupal_add_css($path . '/bootstrap-select.min.css','file');
+  }
+}
+
+function bootstrap_select_libraries_library() {
+$libraries['bootstrap-select'] = array(
+    'name' => 'Bootstrap Select',
+    'vendor url' => 'http://silviomoreto.github.io/bootstrap-select/',
+    'download url' => 'https://github.com/silviomoreto/bootstrap-select/tarball/master',
+    'path' => 'js',
+	'version' => '',
+    'files' => array(
+      'js' => array('/bootstrap-select.min.js'),
+	  'css' => array('/bootstrap-select.min.css'),
+    ),
+  );
+  return $libraries;
+}

@@ -1,0 +1,13 @@
+name = Bootstrap Select plugins
+description = Twitter Bootstrap Select plugins integration for Drupal
+core = 7.x
+package = User interface
+
+files[] = bootstrap_select.module
+
+; Information added by drupal.org packaging script on 2012-12-20
+version = "7.x-1.2"
+core = "7.x"
+project = "bootstrap_select"
+datestamp = "1356020639"
+
